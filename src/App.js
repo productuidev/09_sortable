@@ -1,5 +1,5 @@
 import SortableList from "./lib/SortableList";
-import TestItem from "./TestItem/testItem";
+import TestItem from "./TestItem/TestItem";
 import { data } from "./TestItem/testData";
 
 function App() {

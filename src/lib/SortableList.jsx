@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import SortableListItem from './SortableListItem';
 import "./SortableList.css"
-import { useCallback } from 'react';
 
 function SortableList({data, onDropItem, onClickItem, renderItem}) {
   const [startIndex, setstartIndex] = useState(0);
