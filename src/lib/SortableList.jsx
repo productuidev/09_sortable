@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import SortableListItem from './SortableListItem';
 import "./SortableList.css"
+import { useCallback } from 'react';
 
 function SortableList({data, onDropItem, onClickItem, renderItem}) {
   const [startIndex, setstartIndex] = useState(0);
   const [listData, setlistData] = useState(data);
 
-  const onDragStart = (index) => setstartIndex(index)
-  const onDrop = (dropIndex) => {
+  const onDragStart = (index) => setstartIndex(index);
+  const onDrop = useCallback((dropIndex) => {
     const dragItem = listData[startIndex]
     const list = [...listData];
     list.splice(startIndex, 1)
@@ -15,7 +16,10 @@ function SortableList({data, onDropItem, onClickItem, renderItem}) {
     const newListData = startIndex < dropIndex
       ? [...list.slice(0, dropIndex-1), dragItem, ...list.slice(dropIndex-1, list.length)]
       : [...list.slice(0, dropIndex), dragItem, ...list.slice(dropIndex, list.length)]
-  }
+
+      setlistData(newListData)
+      onDropItem(newListData)
+  }, [startIndex, onDropItem, listData]);
 
   return(
     <ul className='sortable-list'>
